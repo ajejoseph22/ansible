@@ -1,0 +1,11 @@
+---
+- name: demo remote
+  gather_facts: no
+  hosts: all
+  user: ubuntu
+  become: true
+  become_method: sudo
+  become_user: root
+  roles:
+    - setup
+...
