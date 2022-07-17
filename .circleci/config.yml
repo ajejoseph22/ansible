@@ -1,3 +1,9 @@
+only_prod: &only_prod
+  filters:
+    branches:
+      only:
+        - master
+
 version: 2.1
 
 jobs:
@@ -54,10 +60,13 @@ jobs:
 workflows:
   default:
     jobs:
-      - create-infrastructure
+      - create-infrastructure:
+          <<: *only_prod
       - update-ansible-inventory:
+          <<: *only_prod
           requires:
             - create-infrastructure
       - configure-infrastructure:
+          <<: *only_prod
           requires:
             - update-ansible-inventory
